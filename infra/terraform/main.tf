@@ -141,7 +141,7 @@ resource "scaleway_key_manager_key" "kek" {
   tags        = local.tags
   unprotected = false
 
-  rotation_policy = {
+  rotation_policy {
     rotation_period = "2160h"
   }
 }
@@ -163,9 +163,14 @@ resource "scaleway_secret" "redis" {
   tags        = local.tags
 }
 
+locals {
+  # private_network is a set on the Redis cluster; there is exactly one.
+  redis_pn = tolist(scaleway_redis_cluster.main.private_network)[0]
+}
+
 resource "scaleway_secret_version" "redis" {
   secret_id = scaleway_secret.redis.id
-  data      = "rediss://mrp:${urlencode(random_password.redis.result)}@${scaleway_redis_cluster.main.private_networks[0].ips[0]}:${scaleway_redis_cluster.main.private_networks[0].port}/0"
+  data      = "rediss://mrp:${urlencode(random_password.redis.result)}@${local.redis_pn.ips[0]}:${local.redis_pn.port}/0"
 }
 
 resource "scaleway_registry_namespace" "main" {
