@@ -123,7 +123,7 @@ resource "scaleway_redis_cluster" "main" {
   tls_enabled  = true
   tags         = local.tags
 
-  private_networks {
+  private_network {
     id = scaleway_vpc_private_network.main.id
   }
 }
@@ -133,7 +133,7 @@ resource "scaleway_redis_cluster" "main" {
 # The key-encryption key for customers' provider keys. It never leaves Key Manager: the gateway asks
 # Key Manager to wrap and unwrap data keys. Rotated every 90 days; old versions stay for unwrapping
 # until `POST /admin/kek/rotate` has re-wrapped every data key.
-resource "scaleway_keymanager_key" "kek" {
+resource "scaleway_key_manager_key" "kek" {
   name        = "${local.name}-provider-keys"
   usage       = "symmetric_encryption"
   algorithm   = "aes_256_gcm"
@@ -141,7 +141,7 @@ resource "scaleway_keymanager_key" "kek" {
   tags        = local.tags
   unprotected = false
 
-  rotation_policy {
+  rotation_policy = {
     rotation_period = "2160h"
   }
 }

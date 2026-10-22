@@ -7,7 +7,7 @@ output "registry" {
 }
 
 output "kek_id" {
-  value       = scaleway_keymanager_key.kek.id
+  value       = scaleway_key_manager_key.kek.id
   description = "Key Manager key wrapping customers' data keys"
 }
 
