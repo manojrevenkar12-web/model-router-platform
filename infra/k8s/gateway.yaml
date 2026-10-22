@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  labels: {app: gateway}
+spec:
+  replicas: 3
+  revisionHistoryLimit: 5
+  strategy: {type: RollingUpdate, rollingUpdate: {maxUnavailable: 0, maxSurge: 1}}
+  selector: {matchLabels: {app: gateway}}
+  template:
+    metadata:
+      labels: {app: gateway}
+    spec:
+      automountServiceAccountToken: false
+      securityContext: {runAsNonRoot: true, runAsUser: 10001, seccompProfile: {type: RuntimeDefault}}
+      topologySpreadConstraints:
+        - {maxSkew: 1, topologyKey: kubernetes.io/hostname, whenUnsatisfiable: ScheduleAnyway, labelSelector: {matchLabels: {app: gateway}}}
+      terminationGracePeriodSeconds: 60  # let streams finish and settle their usage
+      containers:
+        - name: gateway
+          image: mrp
+          command: ["mrp", "serve", "--port", "8000"]
+          ports: [{containerPort: 8000, name: http}]
+          envFrom: [{secretRef: {name: mrp-secrets}}, {configMapRef: {name: mrp-config}}]
+          readinessProbe: {httpGet: {path: /readyz, port: http}, periodSeconds: 5, failureThreshold: 2}
+          livenessProbe: {httpGet: {path: /healthz, port: http}, periodSeconds: 10, failureThreshold: 3}
+          lifecycle: {preStop: {exec: {command: ["sleep", "10"]}}}
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: ["ALL"]}}
+          resources: {requests: {cpu: 500m, memory: 512Mi}, limits: {cpu: "2", memory: 1Gi}}
+          volumeMounts: [{name: tmp, mountPath: /tmp}]
+      volumes: [{name: tmp, emptyDir: {}}]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway
+spec:
+  selector: {app: gateway}
+  ports: [{port: 80, targetPort: http, name: http}]
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gateway
+spec:
+  scaleTargetRef: {apiVersion: apps/v1, kind: Deployment, name: gateway}
+  minReplicas: 3
+  maxReplicas: 20
+  metrics:
+    - type: Resource
+      resource: {name: cpu, target: {type: Utilization, averageUtilization: 60}}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: gateway
+spec:
+  minAvailable: 2
+  selector: {matchLabels: {app: gateway}}

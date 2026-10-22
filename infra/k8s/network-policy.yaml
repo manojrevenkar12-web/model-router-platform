@@ -1,0 +1,49 @@
+# Default deny; then only what is needed: ingress to the gateway, gateway to vLLM, and egress to
+# the private network (PostgreSQL, Redis), DNS and the providers' APIs over HTTPS.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: {name: default-deny}
+spec:
+  podSelector: {}
+  policyTypes: [Ingress, Egress]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: {name: gateway}
+spec:
+  podSelector: {matchLabels: {app: gateway}}
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from: [{namespaceSelector: {matchLabels: {kubernetes.io/metadata.name: ingress}}}]
+      ports: [{port: 8000}]
+  egress:
+    - to: [{podSelector: {matchLabels: {app: vllm}}}]
+      ports: [{port: 8000}]
+    - to: [{ipBlock: {cidr: 172.16.0.0/12}}]
+      ports: [{port: 5432}, {port: 6379}]
+    - ports: [{port: 53, protocol: UDP}, {port: 443}]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: {name: worker}
+spec:
+  podSelector: {matchLabels: {app: worker}}
+  policyTypes: [Egress]
+  egress:
+    - to: [{podSelector: {matchLabels: {app: vllm}}}]
+      ports: [{port: 8000}]
+    - to: [{ipBlock: {cidr: 172.16.0.0/12}}]
+      ports: [{port: 5432}, {port: 6379}]
+    - ports: [{port: 53, protocol: UDP}, {port: 443}]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: {name: vllm}
+spec:
+  podSelector: {matchLabels: {app: vllm}}
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from: [{podSelector: {matchLabels: {app: gateway}}}, {podSelector: {matchLabels: {app: worker}}}]
+      ports: [{port: 8000}]
+  egress:
+    - ports: [{port: 53, protocol: UDP}, {port: 443}]  # model download on first start

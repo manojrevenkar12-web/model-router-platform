@@ -1,0 +1,21 @@
+# Runs before each rollout (deploy pipeline waits for completion). Migrations are additive and take
+# an advisory lock, so a replica that starts during a migration waits instead of racing it.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mrp-migrate
+spec:
+  backoffLimit: 2
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      restartPolicy: Never
+      securityContext: {runAsNonRoot: true, runAsUser: 10001, seccompProfile: {type: RuntimeDefault}}
+      automountServiceAccountToken: false
+      containers:
+        - name: migrate
+          image: mrp
+          command: ["mrp", "migrate"]
+          envFrom: [{secretRef: {name: mrp-secrets}}, {configMapRef: {name: mrp-config}}]
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: ["ALL"]}}
+          resources: {requests: {cpu: 100m, memory: 128Mi}, limits: {cpu: 500m, memory: 256Mi}}

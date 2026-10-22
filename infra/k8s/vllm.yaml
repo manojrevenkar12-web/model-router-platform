@@ -1,0 +1,52 @@
+# Open-weight model serving on the L4 GPU pool, OpenAI-compatible, reached only by the gateway.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm
+  labels: {app: vllm}
+spec:
+  replicas: 1
+  strategy: {type: Recreate}  # one model per GPU; avoid two pods fighting for the same card
+  selector: {matchLabels: {app: vllm}}
+  template:
+    metadata:
+      labels: {app: vllm}
+    spec:
+      automountServiceAccountToken: false
+      securityContext: {runAsNonRoot: true, runAsUser: 10001, fsGroup: 10001, seccompProfile: {type: RuntimeDefault}}
+      nodeSelector: {k8s.scaleway.com/pool-name: gpu-l4}
+      tolerations: [{key: nvidia.com/gpu, operator: Exists, effect: NoSchedule}]
+      containers:
+        - name: vllm
+          image: vllm/vllm-openai:v0.6.3
+          args: ["--model", "meta-llama/Llama-3.1-8B-Instruct", "--max-model-len", "32768", "--gpu-memory-utilization", "0.90", "--served-model-name", "llama-8b-instruct"]
+          ports: [{containerPort: 8000, name: http}]
+          env: [{name: HF_HOME, value: /models}, {name: XDG_CACHE_HOME, value: /tmp/cache}, {name: HF_TOKEN, valueFrom: {secretKeyRef: {name: mrp-secrets, key: HF_TOKEN, optional: true}}}]
+          readinessProbe: {httpGet: {path: /health, port: http}, periodSeconds: 10, failureThreshold: 3, initialDelaySeconds: 60}
+          livenessProbe: {httpGet: {path: /health, port: http}, periodSeconds: 20, failureThreshold: 6, initialDelaySeconds: 300}
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: ["ALL"]}}
+          resources: {requests: {cpu: "4", memory: 24Gi, nvidia.com/gpu: 1}, limits: {cpu: "8", memory: 28Gi, nvidia.com/gpu: 1}}
+          volumeMounts: [{name: models, mountPath: /models}, {name: shm, mountPath: /dev/shm}, {name: tmp, mountPath: /tmp}]
+      volumes:
+        - name: models
+          persistentVolumeClaim: {claimName: model-cache}
+        - name: shm
+          emptyDir: {medium: Memory, sizeLimit: 8Gi}
+        - name: tmp
+          emptyDir: {sizeLimit: 10Gi}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: model-cache
+spec:
+  accessModes: [ReadWriteOnce]
+  resources: {requests: {storage: 100Gi}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vllm
+spec:
+  selector: {app: vllm}
+  ports: [{port: 8000, targetPort: http, name: http}]

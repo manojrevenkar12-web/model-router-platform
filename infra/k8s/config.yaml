@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mrp-config
+data:
+  MRP_PROVIDERS: litellm
+  MRP_APP_ROLE: mrp_app
+  MRP_SELF_HOSTED_API_BASE: http://vllm.mrp.svc.cluster.local:8000/v1
+  OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector.observability.svc.cluster.local:4318
+  OTEL_SERVICE_NAME: mrp-gateway
+---
+# Created by the deploy pipeline from Secret Manager (external-secrets); never committed.
+# Keys: MRP_DATABASE_URL, MRP_REDIS_URL, MRP_ADMIN_TOKEN, MRP_KMS_KEY_ID, SCW_SECRET_KEY,
+#       ANTHROPIC_API_KEY, OPENAI_API_KEY
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mrp-secrets
+type: Opaque

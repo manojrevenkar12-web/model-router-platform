@@ -1,0 +1,350 @@
+{
+ "chat": {
+  "fast-small": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 281.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "frontier-large": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 293.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "frontier-mid": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 290.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "general-b": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 288.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "general-b-mini": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 281.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "open-70b": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 283.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "open-8b": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 254.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "open-8b-extract": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 208.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  }
+ },
+ "classification": {
+  "fast-small": {
+   "caught": 8.0,
+   "false_alarms": 1.0,
+   "passes": 285.0,
+   "trials": 300.0,
+   "wrong": 15.0
+  },
+  "frontier-large": {
+   "caught": 4.0,
+   "false_alarms": 3.0,
+   "passes": 291.0,
+   "trials": 300.0,
+   "wrong": 9.0
+  },
+  "frontier-mid": {
+   "caught": 9.0,
+   "false_alarms": 4.0,
+   "passes": 290.0,
+   "trials": 300.0,
+   "wrong": 10.0
+  },
+  "general-b": {
+   "caught": 8.0,
+   "false_alarms": 1.0,
+   "passes": 287.0,
+   "trials": 300.0,
+   "wrong": 13.0
+  },
+  "general-b-mini": {
+   "caught": 12.0,
+   "false_alarms": 5.0,
+   "passes": 281.0,
+   "trials": 300.0,
+   "wrong": 19.0
+  },
+  "open-70b": {
+   "caught": 14.0,
+   "false_alarms": 3.0,
+   "passes": 275.0,
+   "trials": 300.0,
+   "wrong": 25.0
+  },
+  "open-8b": {
+   "caught": 20.0,
+   "false_alarms": 0.0,
+   "passes": 259.0,
+   "trials": 300.0,
+   "wrong": 41.0
+  },
+  "open-8b-extract": {
+   "caught": 22.0,
+   "false_alarms": 1.0,
+   "passes": 257.0,
+   "trials": 300.0,
+   "wrong": 43.0
+  }
+ },
+ "code": {
+  "fast-small": {
+   "caught": 24.0,
+   "false_alarms": 0.0,
+   "passes": 240.0,
+   "trials": 300.0,
+   "wrong": 60.0
+  },
+  "frontier-large": {
+   "caught": 8.0,
+   "false_alarms": 4.0,
+   "passes": 288.0,
+   "trials": 300.0,
+   "wrong": 12.0
+  },
+  "frontier-mid": {
+   "caught": 8.0,
+   "false_alarms": 3.0,
+   "passes": 280.0,
+   "trials": 300.0,
+   "wrong": 20.0
+  },
+  "general-b": {
+   "caught": 8.0,
+   "false_alarms": 8.0,
+   "passes": 281.0,
+   "trials": 300.0,
+   "wrong": 19.0
+  },
+  "general-b-mini": {
+   "caught": 21.0,
+   "false_alarms": 1.0,
+   "passes": 249.0,
+   "trials": 300.0,
+   "wrong": 51.0
+  },
+  "open-70b": {
+   "caught": 31.0,
+   "false_alarms": 1.0,
+   "passes": 245.0,
+   "trials": 300.0,
+   "wrong": 55.0
+  },
+  "open-8b": {
+   "caught": 76.0,
+   "false_alarms": 1.0,
+   "passes": 169.0,
+   "trials": 300.0,
+   "wrong": 131.0
+  },
+  "open-8b-extract": {
+   "caught": 87.0,
+   "false_alarms": 0.0,
+   "passes": 151.0,
+   "trials": 300.0,
+   "wrong": 149.0
+  }
+ },
+ "extraction": {
+  "fast-small": {
+   "caught": 14.0,
+   "false_alarms": 3.0,
+   "passes": 279.0,
+   "trials": 300.0,
+   "wrong": 21.0
+  },
+  "frontier-large": {
+   "caught": 3.0,
+   "false_alarms": 5.0,
+   "passes": 297.0,
+   "trials": 300.0,
+   "wrong": 3.0
+  },
+  "frontier-mid": {
+   "caught": 4.0,
+   "false_alarms": 5.0,
+   "passes": 294.0,
+   "trials": 300.0,
+   "wrong": 6.0
+  },
+  "general-b": {
+   "caught": 8.0,
+   "false_alarms": 3.0,
+   "passes": 291.0,
+   "trials": 300.0,
+   "wrong": 9.0
+  },
+  "general-b-mini": {
+   "caught": 20.0,
+   "false_alarms": 5.0,
+   "passes": 274.0,
+   "trials": 300.0,
+   "wrong": 26.0
+  },
+  "open-70b": {
+   "caught": 10.0,
+   "false_alarms": 0.0,
+   "passes": 285.0,
+   "trials": 300.0,
+   "wrong": 15.0
+  },
+  "open-8b": {
+   "caught": 38.0,
+   "false_alarms": 1.0,
+   "passes": 251.0,
+   "trials": 300.0,
+   "wrong": 49.0
+  },
+  "open-8b-extract": {
+   "caught": 4.0,
+   "false_alarms": 2.0,
+   "passes": 289.0,
+   "trials": 300.0,
+   "wrong": 11.0
+  }
+ },
+ "reasoning": {
+  "fast-small": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 218.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "frontier-large": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 288.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "frontier-mid": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 270.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "general-b": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 272.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "general-b-mini": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 215.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "open-70b": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 235.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "open-8b": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 129.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "open-8b-extract": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 120.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  }
+ },
+ "summarization": {
+  "fast-small": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 274.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "frontier-large": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 286.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "frontier-mid": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 291.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "general-b": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 285.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "general-b-mini": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 271.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "open-70b": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 279.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "open-8b": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 255.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  },
+  "open-8b-extract": {
+   "caught": 0.0,
+   "false_alarms": 0.0,
+   "passes": 199.0,
+   "trials": 300.0,
+   "wrong": 0.0
+  }
+ }
+}

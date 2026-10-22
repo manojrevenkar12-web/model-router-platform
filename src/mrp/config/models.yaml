@@ -1,0 +1,30 @@
+# The model catalogue: what each model costs and how to reach it. Prices are per million tokens in
+# EUR and illustrative; real prices come from the providers' price lists and are reviewed when
+# they change. Quality is not configured here: it is measured per task by the evaluations
+# (see eval/quality_table.json) and read by the router.
+#
+# open_weight models are served on our own GPUs; their price is our serving cost per token.
+
+models:
+  frontier-large:   {provider: closed-a, upstream: "anthropic/claude-opus-5-5", price_in: 13.80, price_out: 69.00, context: 200000, open_weight: false}
+  frontier-mid:     {provider: closed-a, upstream: "anthropic/claude-sonnet-5-5", price_in: 2.76, price_out: 13.80, context: 200000, open_weight: false}
+  fast-small:       {provider: closed-a, upstream: "anthropic/claude-haiku-5-5", price_in: 0.74, price_out: 3.68, context: 200000, open_weight: false}
+  general-b:        {provider: closed-b, upstream: "openai/gpt-4.1", price_in: 1.84, price_out: 7.36, context: 128000, open_weight: false}
+  general-b-mini:   {provider: closed-b, upstream: "openai/gpt-4.1-mini", price_in: 0.37, price_out: 1.47, context: 128000, open_weight: false}
+  open-70b:         {provider: self-hosted, upstream: "hosted_vllm/llama-70b-instruct", price_in: 0.45, price_out: 0.60, context: 64000, open_weight: true}
+  open-8b:          {provider: self-hosted, upstream: "hosted_vllm/llama-8b-instruct", price_in: 0.06, price_out: 0.09, context: 32000, open_weight: true}
+  open-8b-extract:  {provider: self-hosted, upstream: "hosted_vllm/llama-8b-extract-ft", price_in: 0.06, price_out: 0.09, context: 32000, open_weight: true, fine_tuned_for: extraction}
+
+# Quality targets a request can ask for (share of answers that pass the task's grader).
+quality_targets:
+  economy: 0.80
+  standard: 0.90
+  high: 0.96
+
+plans:
+  free:       {monthly_tokens: 2000000,   max_request_cost: 0.05, markup: 0.0,  features: []}
+  team:       {monthly_tokens: 200000000, max_request_cost: 1.00, markup: 0.15, features: [byok, semantic_cache, agents]}
+  enterprise: {monthly_tokens: 0,         max_request_cost: 5.00, markup: 0.10, features: [byok, semantic_cache, agents, fine_tuning]}   # 0 = no token cap
+
+cache:
+  cached_answer_charge: 0.10   # share of the avoided cost billed for a cache hit

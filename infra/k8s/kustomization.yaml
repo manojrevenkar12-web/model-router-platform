@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: mrp
+resources:
+  - namespace.yaml
+  - config.yaml
+  - migrate-job.yaml
+  - gateway.yaml
+  - worker.yaml
+  - vllm.yaml
+  - network-policy.yaml
+images:
+  - name: mrp
+    newName: rg.fr-par.scw.cloud/mrp-production/mrp
+    newTag: "0.1.0"

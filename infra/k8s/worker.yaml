@@ -1,0 +1,29 @@
+# arq worker: agent runs and the reconciler (every five minutes). Runs are leased, so several
+# replicas can run safely and a killed pod's runs are picked up after the lease expires.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  labels: {app: worker}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: worker}}
+  template:
+    metadata:
+      labels: {app: worker}
+    spec:
+      automountServiceAccountToken: false
+      securityContext: {runAsNonRoot: true, runAsUser: 10001, seccompProfile: {type: RuntimeDefault}}
+      terminationGracePeriodSeconds: 120
+      containers:
+        - name: worker
+          image: mrp
+          command: ["arq", "mrp.worker.WorkerSettings"]
+          envFrom: [{secretRef: {name: mrp-secrets}}, {configMapRef: {name: mrp-config}}]
+          # arq writes a health record to Redis every minute; --check fails when it is stale
+          livenessProbe: {exec: {command: ["arq", "--check", "mrp.worker.WorkerSettings"]}, periodSeconds: 60, timeoutSeconds: 20, failureThreshold: 3}
+          readinessProbe: {exec: {command: ["arq", "--check", "mrp.worker.WorkerSettings"]}, periodSeconds: 60, timeoutSeconds: 20}
+          securityContext: {allowPrivilegeEscalation: false, readOnlyRootFilesystem: true, capabilities: {drop: ["ALL"]}}
+          resources: {requests: {cpu: 250m, memory: 256Mi}, limits: {cpu: "1", memory: 512Mi}}
+          volumeMounts: [{name: tmp, mountPath: /tmp}]
+      volumes: [{name: tmp, emptyDir: {}}]

@@ -1,0 +1,24 @@
+# Local stack: gateway and worker on PostgreSQL (pgvector) and Redis, with simulated providers.
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment: {POSTGRES_USER: mrp, POSTGRES_PASSWORD: mrp, POSTGRES_DB: mrp}
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U mrp"], interval: 2s, retries: 30}
+  redis:
+    image: redis:7
+    healthcheck: {test: ["CMD", "redis-cli", "ping"], interval: 2s, retries: 30}
+  gateway:
+    build: {context: .., dockerfile: deploy/Dockerfile}
+    environment: &env
+      MRP_DATABASE_URL: postgresql://mrp:mrp@db:5432/mrp
+      MRP_REDIS_URL: redis://redis:6379/0
+      MRP_ADMIN_TOKEN: local-admin-token
+      MRP_KEKS: "v1:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY="   # local only; production uses Key Manager
+      MRP_PROVIDERS: sim
+    ports: ["8000:8000"]
+    depends_on: {db: {condition: service_healthy}, redis: {condition: service_healthy}}
+  worker:
+    build: {context: .., dockerfile: deploy/Dockerfile}
+    command: ["arq", "mrp.worker.WorkerSettings"]
+    environment: *env
+    depends_on: {gateway: {condition: service_started}}

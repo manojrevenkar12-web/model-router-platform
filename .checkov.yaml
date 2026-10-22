@@ -1,0 +1,8 @@
+# Findings accepted on purpose, with the reason. Everything else must pass (CI runs checkov).
+skip-check:
+  - CKV_K8S_21   # namespace is set by kustomize (kustomization.yaml), not in each manifest
+  - CKV_K8S_14   # image tags and digests are set by the pipeline with `kustomize edit set image`
+  - CKV_K8S_43   # same: the deployed image reference is a digest
+  - CKV_K8S_15   # pull policy is irrelevant once images are pinned by digest
+  - CKV_K8S_35   # secrets come from Secret Manager via external-secrets as env; rotation restarts pods
+  - CKV2_K8S_6   # network policies exist (network-policy.yaml); checkov cannot pair them across files

@@ -1,0 +1,573 @@
+{
+  "routing": {
+    "calibration_items_per_cell": 300,
+    "test_requests": 6000,
+    "targets": {
+      "standard": {
+        "target": 0.9,
+        "policies": [
+          {
+            "policy": "frontier-large",
+            "quality": 0.9675,
+            "quality_by_task": {
+              "summarization": 0.966,
+              "reasoning": 0.941,
+              "classification": 0.97,
+              "extraction": 0.987,
+              "code": 0.961,
+              "chat": 0.98
+            },
+            "tasks_clearly_below_target": [],
+            "cost_eur": 132.6312,
+            "cost_per_1k_requests_eur": 22.1052,
+            "p50_latency_ms": 1400.0,
+            "p95_latency_ms": 1400.0,
+            "escalation_rate": 0.0,
+            "model_use": {
+              "frontier-large": 6000
+            },
+            "saving_vs_frontier": 0.0
+          },
+          {
+            "policy": "cheapest",
+            "quality": 0.7262,
+            "quality_by_task": {
+              "summarization": 0.844,
+              "reasoning": 0.444,
+              "classification": 0.868,
+              "extraction": 0.791,
+              "code": 0.581,
+              "chat": 0.829
+            },
+            "tasks_clearly_below_target": [
+              "summarization",
+              "reasoning",
+              "classification",
+              "extraction",
+              "code",
+              "chat"
+            ],
+            "cost_eur": 0.3868,
+            "cost_per_1k_requests_eur": 0.0645,
+            "p50_latency_ms": 120.0,
+            "p95_latency_ms": 120.0,
+            "escalation_rate": 0.0,
+            "model_use": {
+              "open-8b": 6000
+            },
+            "saving_vs_frontier": 0.9971
+          },
+          {
+            "policy": "point-estimate",
+            "quality": 0.9375,
+            "quality_by_task": {
+              "summarization": 0.896,
+              "reasoning": 0.871,
+              "classification": 0.972,
+              "extraction": 0.99,
+              "code": 0.959,
+              "chat": 0.937
+            },
+            "tasks_clearly_below_target": [
+              "reasoning"
+            ],
+            "cost_eur": 7.9657,
+            "cost_per_1k_requests_eur": 1.3276,
+            "p50_latency_ms": 420.0,
+            "p95_latency_ms": 650.0,
+            "escalation_rate": 0.0242,
+            "model_use": {
+              "general-b": 1943,
+              "general-b-mini": 1685,
+              "open-70b": 1347,
+              "open-8b-extract": 968,
+              "frontier-mid": 57
+            },
+            "saving_vs_frontier": 0.9399
+          },
+          {
+            "policy": "lower-bound",
+            "quality": 0.9525,
+            "quality_by_task": {
+              "summarization": 0.91,
+              "reasoning": 0.941,
+              "classification": 0.975,
+              "extraction": 0.993,
+              "code": 0.959,
+              "chat": 0.937
+            },
+            "tasks_clearly_below_target": [],
+            "cost_eur": 40.1762,
+            "cost_per_1k_requests_eur": 6.696,
+            "p50_latency_ms": 420.0,
+            "p95_latency_ms": 1400.0,
+            "escalation_rate": 0.0242,
+            "model_use": {
+              "open-70b": 2032,
+              "frontier-large": 1000,
+              "open-8b-extract": 968,
+              "general-b-mini": 944,
+              "general-b": 943,
+              "frontier-mid": 57,
+              "fast-small": 56
+            },
+            "saving_vs_frontier": 0.6971
+          },
+          {
+            "policy": "lower-bound+cascade",
+            "quality": 0.949,
+            "quality_by_task": {
+              "summarization": 0.91,
+              "reasoning": 0.941,
+              "classification": 0.954,
+              "extraction": 0.993,
+              "code": 0.959,
+              "chat": 0.937
+            },
+            "tasks_clearly_below_target": [],
+            "cost_eur": 40.1008,
+            "cost_per_1k_requests_eur": 6.6835,
+            "p50_latency_ms": 420.0,
+            "p95_latency_ms": 1400.0,
+            "escalation_rate": 0.0322,
+            "model_use": {
+              "open-70b": 2032,
+              "frontier-large": 1000,
+              "open-8b-extract": 968,
+              "general-b": 943,
+              "open-8b": 903,
+              "general-b-mini": 90,
+              "frontier-mid": 57,
+              "fast-small": 7
+            },
+            "saving_vs_frontier": 0.6977
+          }
+        ]
+      },
+      "high": {
+        "target": 0.96,
+        "policies": [
+          {
+            "policy": "frontier-large",
+            "quality": 0.9675,
+            "quality_by_task": {
+              "summarization": 0.966,
+              "reasoning": 0.941,
+              "classification": 0.97,
+              "extraction": 0.987,
+              "code": 0.961,
+              "chat": 0.98
+            },
+            "tasks_clearly_below_target": [
+              "reasoning"
+            ],
+            "cost_eur": 132.6312,
+            "cost_per_1k_requests_eur": 22.1052,
+            "p50_latency_ms": 1400.0,
+            "p95_latency_ms": 1400.0,
+            "escalation_rate": 0.0,
+            "model_use": {
+              "frontier-large": 6000
+            },
+            "saving_vs_frontier": 0.0
+          },
+          {
+            "policy": "cheapest",
+            "quality": 0.7262,
+            "quality_by_task": {
+              "summarization": 0.844,
+              "reasoning": 0.444,
+              "classification": 0.868,
+              "extraction": 0.791,
+              "code": 0.581,
+              "chat": 0.829
+            },
+            "tasks_clearly_below_target": [
+              "summarization",
+              "reasoning",
+              "classification",
+              "extraction",
+              "code",
+              "chat"
+            ],
+            "cost_eur": 0.3868,
+            "cost_per_1k_requests_eur": 0.0645,
+            "p50_latency_ms": 120.0,
+            "p95_latency_ms": 120.0,
+            "escalation_rate": 0.0,
+            "model_use": {
+              "open-8b": 6000
+            },
+            "saving_vs_frontier": 0.9971
+          },
+          {
+            "policy": "point-estimate",
+            "quality": 0.965,
+            "quality_by_task": {
+              "summarization": 0.96,
+              "reasoning": 0.941,
+              "classification": 0.989,
+              "extraction": 0.991,
+              "code": 0.961,
+              "chat": 0.948
+            },
+            "tasks_clearly_below_target": [
+              "reasoning",
+              "chat"
+            ],
+            "cost_eur": 65.6081,
+            "cost_per_1k_requests_eur": 10.9347,
+            "p50_latency_ms": 700.0,
+            "p95_latency_ms": 1400.0,
+            "escalation_rate": 0.011,
+            "model_use": {
+              "frontier-large": 2034,
+              "frontier-mid": 1966,
+              "general-b": 1032,
+              "open-8b-extract": 968
+            },
+            "saving_vs_frontier": 0.5053
+          },
+          {
+            "policy": "lower-bound",
+            "quality": 0.9732,
+            "quality_by_task": {
+              "summarization": 0.96,
+              "reasoning": 0.941,
+              "classification": 0.986,
+              "extraction": 0.99,
+              "code": 0.982,
+              "chat": 0.98
+            },
+            "tasks_clearly_below_target": [
+              "reasoning"
+            ],
+            "cost_eur": 84.372,
+            "cost_per_1k_requests_eur": 14.062,
+            "p50_latency_ms": 1400.0,
+            "p95_latency_ms": 1400.0,
+            "escalation_rate": 0.0133,
+            "model_use": {
+              "frontier-large": 3966,
+              "frontier-mid": 2001,
+              "general-b": 33
+            },
+            "saving_vs_frontier": 0.3639
+          },
+          {
+            "policy": "lower-bound+cascade",
+            "quality": 0.973,
+            "quality_by_task": {
+              "summarization": 0.96,
+              "reasoning": 0.941,
+              "classification": 0.981,
+              "extraction": 0.994,
+              "code": 0.982,
+              "chat": 0.98
+            },
+            "tasks_clearly_below_target": [
+              "reasoning"
+            ],
+            "cost_eur": 77.9627,
+            "cost_per_1k_requests_eur": 12.9938,
+            "p50_latency_ms": 1400.0,
+            "p95_latency_ms": 1400.0,
+            "escalation_rate": 0.0165,
+            "model_use": {
+              "frontier-large": 2997,
+              "frontier-mid": 1032,
+              "general-b": 1003,
+              "open-8b-extract": 968
+            },
+            "saving_vs_frontier": 0.4122
+          }
+        ]
+      }
+    },
+    "small_calibration": {
+      "items_per_cell": 30,
+      "target": 0.9,
+      "policies": [
+        {
+          "policy": "point-estimate",
+          "quality": 0.92,
+          "quality_by_task": {
+            "summarization": 0.844,
+            "reasoning": 0.871,
+            "classification": 0.94,
+            "extraction": 0.99,
+            "code": 0.938,
+            "chat": 0.937
+          },
+          "tasks_clearly_below_target": [
+            "summarization",
+            "reasoning"
+          ],
+          "cost_eur": 4.9999,
+          "cost_per_1k_requests_eur": 0.8333,
+          "p50_latency_ms": 420.0,
+          "p95_latency_ms": 650.0,
+          "escalation_rate": 0.0362,
+          "model_use": {
+            "open-70b": 1921,
+            "open-8b": 1903,
+            "open-8b-extract": 1065,
+            "general-b": 1000,
+            "fast-small": 88,
+            "general-b-mini": 23
+          }
+        },
+        {
+          "policy": "lower-bound",
+          "quality": 0.95,
+          "quality_by_task": {
+            "summarization": 0.966,
+            "reasoning": 0.871,
+            "classification": 0.965,
+            "extraction": 0.991,
+            "code": 0.971,
+            "chat": 0.936
+          },
+          "tasks_clearly_below_target": [
+            "reasoning"
+          ],
+          "cost_eur": 54.0746,
+          "cost_per_1k_requests_eur": 9.0124,
+          "p50_latency_ms": 700.0,
+          "p95_latency_ms": 1400.0,
+          "escalation_rate": 0.0108,
+          "model_use": {
+            "frontier-mid": 1967,
+            "frontier-large": 1033,
+            "general-b": 1032,
+            "fast-small": 1000,
+            "open-8b-extract": 968
+          }
+        },
+        {
+          "policy": "lower-bound+cascade",
+          "quality": 0.9527,
+          "quality_by_task": {
+            "summarization": 0.966,
+            "reasoning": 0.871,
+            "classification": 0.981,
+            "extraction": 0.991,
+            "code": 0.971,
+            "chat": 0.936
+          },
+          "tasks_clearly_below_target": [
+            "reasoning"
+          ],
+          "cost_eur": 53.8602,
+          "cost_per_1k_requests_eur": 8.9767,
+          "p50_latency_ms": 650.0,
+          "p95_latency_ms": 1400.0,
+          "escalation_rate": 0.0158,
+          "model_use": {
+            "general-b": 2002,
+            "frontier-large": 1033,
+            "fast-small": 1000,
+            "frontier-mid": 997,
+            "open-8b-extract": 968
+          }
+        }
+      ]
+    },
+    "drift": {
+      "requests": 4000,
+      "degrades_after": 1500,
+      "target": 0.9,
+      "without_monitor": {
+        "quality_per_500_requests": [
+          0.984,
+          0.986,
+          0.994,
+          0.884,
+          0.872,
+          0.886,
+          0.876,
+          0.864
+        ],
+        "excluded": []
+      },
+      "with_monitor": {
+        "quality_per_500_requests": [
+          0.984,
+          0.986,
+          0.994,
+          0.944,
+          0.952,
+          0.946,
+          0.944,
+          0.928
+        ],
+        "excluded": [
+          [
+            "extraction",
+            "open-8b-extract"
+          ]
+        ]
+      },
+      "false_exclusions_in_steady_state": []
+    }
+  },
+  "cache": {
+    "pairs": 600,
+    "embedder": "character n-gram hashing (no model download); production uses a sentence-embedding model",
+    "median_similarity": {
+      "repeats": 0.95,
+      "near_misses": 0.866
+    },
+    "by_threshold": [
+      {
+        "threshold": 0.8,
+        "repeats_served": 0.97,
+        "near_misses_served": 0.8667,
+        "repeats_served_with_slot_check": 0.97,
+        "near_misses_served_with_slot_check": 0.0
+      },
+      {
+        "threshold": 0.85,
+        "repeats_served": 0.9083,
+        "near_misses_served": 0.5883,
+        "repeats_served_with_slot_check": 0.9083,
+        "near_misses_served_with_slot_check": 0.0
+      },
+      {
+        "threshold": 0.88,
+        "repeats_served": 0.8317,
+        "near_misses_served": 0.4083,
+        "repeats_served_with_slot_check": 0.8317,
+        "near_misses_served_with_slot_check": 0.0
+      },
+      {
+        "threshold": 0.9,
+        "repeats_served": 0.7867,
+        "near_misses_served": 0.2467,
+        "repeats_served_with_slot_check": 0.7867,
+        "near_misses_served_with_slot_check": 0.0
+      },
+      {
+        "threshold": 0.92,
+        "repeats_served": 0.735,
+        "near_misses_served": 0.1167,
+        "repeats_served_with_slot_check": 0.735,
+        "near_misses_served_with_slot_check": 0.0
+      },
+      {
+        "threshold": 0.94,
+        "repeats_served": 0.6183,
+        "near_misses_served": 0.0617,
+        "repeats_served_with_slot_check": 0.6183,
+        "near_misses_served_with_slot_check": 0.0
+      },
+      {
+        "threshold": 0.96,
+        "repeats_served": 0.4183,
+        "near_misses_served": 0.0133,
+        "repeats_served_with_slot_check": 0.4183,
+        "near_misses_served_with_slot_check": 0.0
+      }
+    ]
+  },
+  "billing": {
+    "requests": 1500,
+    "provider_calls": 1686,
+    "provider_calls_by_status": {
+      "ok": 1496,
+      "abandoned": 42,
+      "cancelled": 47,
+      "failed": 101
+    },
+    "injected": {
+      "provider_error_rate_before_charge": 0.03,
+      "provider_error_rate_after_charge": 0.03,
+      "gateway_crash_rate_after_answer": 0.02,
+      "gateway_crashes": 42,
+      "client_retries": 42,
+      "late_duplicates": 80,
+      "client_disconnects_mid_stream": 47,
+      "provider_failed_before_charge": 55,
+      "provider_failed_after_charge": 42
+    },
+    "outcomes": {
+      "answered": 1453,
+      "duplicate_replayed": 80,
+      "disconnected": 47
+    },
+    "reconciler": {
+      "checked": 89,
+      "settled": 89,
+      "still_unknown": 0
+    },
+    "ledger_vs_provider_records": {
+      "provider_charges": 1627,
+      "charges_missing_from_ledger": 0,
+      "cost_mismatches": 0,
+      "ledger_costs_never_charged": 0
+    },
+    "customer_billing": {
+      "usage_rows": 1500,
+      "keys_with_more_than_one_row": 0,
+      "billed_amount_wrong": 0,
+      "billed_without_an_answer": 0,
+      "answered_but_not_recorded_as_answered": 0,
+      "actual_spend_eur": "7.87781445",
+      "billed_eur": "8.16892707"
+    },
+    "invoice_reconciliation": {
+      "provider": "closed-a",
+      "invoice_total": "7.54500406",
+      "ledger_total": "7.59175210",
+      "difference": "-0.04674804",
+      "charged_not_in_ledger": 3,
+      "in_ledger_not_charged": 3,
+      "amount_mismatch": 3,
+      "clean": false,
+      "planted": {
+        "overbilled": 3,
+        "missing_from_invoice": 3,
+        "not_ours": 3
+      },
+      "all_found": true
+    }
+  },
+  "load": {
+    "concurrency_1": {
+      "requests": 400,
+      "errors": 0,
+      "requests_per_second": 99.4,
+      "p50_ms": 9.6,
+      "p95_ms": 13.3,
+      "p99_ms": 17.9
+    },
+    "concurrency_16": {
+      "requests": 2000,
+      "errors": 0,
+      "requests_per_second": 175.6,
+      "p50_ms": 87.2,
+      "p95_ms": 122.8,
+      "p99_ms": 179.4
+    },
+    "note": "one uvicorn process sharing a 2-vCPU machine with PostgreSQL, Redis and the load generator; providers answer instantly, so this is gateway overhead only"
+  },
+  "meta": {
+    "quick": false,
+    "seconds": 52.8
+  },
+  "measures": {
+    "routing_standard_saving_vs_frontier": 0.6977,
+    "routing_standard_tasks_below_target": 0,
+    "routing_small_calibration_lower_bound_tasks_below_target": 1,
+    "drift_quality_after_exclusion": 0.928,
+    "drift_false_exclusions": 0,
+    "billing_charges_missing_from_ledger": 0,
+    "billing_cost_mismatches": 0,
+    "billing_double_rows": 0,
+    "billing_wrong_amounts": 0,
+    "billing_billed_without_answer": 0,
+    "invoice_planted_errors_found": 1,
+    "cache_false_hits_with_slot_check": 0.0,
+    "overhead_p95_ms_concurrency_1": 13.3
+  }
+}
