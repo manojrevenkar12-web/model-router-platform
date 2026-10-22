@@ -74,7 +74,11 @@ jobs:
       - uses: hashicorp/setup-terraform@v3
       - run: terraform -chdir=infra/terraform fmt -check -recursive
       - run: terraform -chdir=infra/terraform init -backend=false
-      - run: terraform -chdir=infra/terraform validate
+      - name: terraform validate (errors become annotations)
+        run: |
+          terraform -chdir=infra/terraform validate -json > validate.json || true
+          jq -r '.diagnostics[] | "::\(if .severity == "error" then "error" else "warning" end) file=infra/terraform/\(.range.filename // "main.tf"),line=\(.range.start.line // 1)::\(.summary): \(.detail // "" | gsub("\n"; " "))"' validate.json
+          jq -e '.valid' validate.json
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
       - run: pip install checkov
